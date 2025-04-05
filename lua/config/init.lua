@@ -3,10 +3,9 @@ require("config.lazy")
 require("config.set")
 
 local augroup = vim.api.nvim_create_augroup
-local bamcmanus = augroup('bamcmanus', {})
-
 local autocmd = vim.api.nvim_create_autocmd
 
+local bamcmanus = augroup('bamcmanus', {})
 autocmd('LspAttach', {
     group = bamcmanus,
     callback = function(e)
@@ -21,4 +20,14 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     end
+})
+
+local netrwlinenum = augroup("NetrwLineNumbers", {})
+autocmd("FileType", {
+  group = netrwlinenum,
+  pattern = "netrw",
+  callback = function()
+        vim.wo.number = true
+        vim.wo.relativenumber = true
+    end,
 })
