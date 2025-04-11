@@ -40,8 +40,9 @@ vim.keymap.set("i", "<C-j>", "<Down>", {})
 vim.keymap.set("i", "<C-k>", "<Up>", {})
 
 -- allow easy quit/save functionality
-vim.keymap.set("n", "<leader>qq", ":q<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "<leader>ww", ":w<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>q", ":q<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>fq", ":q!<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>s", ":w<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>wq", ":wq<CR>", { silent = true, noremap = true })
 
 -- append previous line to current line and keep cursor
