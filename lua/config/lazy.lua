@@ -65,7 +65,7 @@ vim.keymap.set("i", "<C-c>", "<Esc>", { noremap = true })
 -- never hit Q, it's the worst place in the world
 vim.keymap.set("n", "Q", "<nop>", { noremap = true })
 
--- vim.cmd.colorscheme("<REPLACE_WITH_COLOR_SCHEME>")
+--vim.cmd.colorscheme("<REPLACE_WITH_COLOR_SCHEME>")
 
 -- Setup lazy.nvim
 require("lazy").setup({
