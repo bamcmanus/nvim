@@ -35,6 +35,9 @@ return {
                     "lua_ls",
                     "gopls",
                     "pylsp",
+                    "html",
+                    "eslint",
+                    "bzl",
                 },
                 handlers = {
                     function(server_name) -- default handler (optional)
