@@ -14,13 +14,6 @@ return {
             "saadparwaiz1/cmp_luasnip",
             "j-hui/fidget.nvim",
         },
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { "vim" },
-                },
-            },
-        },
         config = function()
             require("conform").setup({
                 formatter_by_ft = {}
@@ -57,14 +50,32 @@ return {
                     ["lua_ls"] = function()
                         local lspconfig = require("lspconfig")
                         lspconfig.lua_ls.setup{
-                            capabilites = capabilities,
-                            settings = {
-                                Lua = {
-                                    runtime = { version = "Lua 5.1" },
-                                    diagnostics = {
-                                        globals = { "vim" },
+                            capabilities = capabilities,
+                            on_init = function(client)
+                                if client.workspace_folders then
+                                    local path = client.workspace_folders[1].name
+                                    if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
+                                        return
+                                    end
+                                end
+
+                                client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                                    runtime = {
+                                        version = 'LuaJIT'
                                     },
-                                },
+                                    diagnostics = {
+                                        globals = { 'vim' },
+                                    },
+                                    workspace = {
+                                        checkThirdParty = false,
+                                        library = {
+                                            vim.env.VIMRUNTIME
+                                        }
+                                    }
+                                })
+                            end,
+                            settings = {
+                                Lua = {}
                             },
                         }
                     end,
