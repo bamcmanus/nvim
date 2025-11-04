@@ -39,12 +39,13 @@ return {
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed =  {
-                    "lua_ls",
-                    "gopls",
-                    "pylsp",
-                    "html",
-                    "eslint",
                     "bzl",
+                    "eslint",
+                    "gh_actions_ls",
+                    "gopls",
+                    "html",
+                    "lua_ls",
+                    "pylsp",
                 },
                 handlers = {
                     function(server_name) -- default handler (optional)
