@@ -35,3 +35,4 @@ autocmd("FileType", {
         vim.wo.relativenumber = true
     end,
 })
+
