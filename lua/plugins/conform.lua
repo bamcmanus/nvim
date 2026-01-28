@@ -4,8 +4,6 @@ return {
         dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim" },
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
-        ---@module "conform"
-        ---@type conform.setupOpts
         opts = {
             -- Set up formatters by filetype
             formatters_by_ft = {

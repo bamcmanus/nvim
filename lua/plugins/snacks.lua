@@ -15,6 +15,6 @@ return {
     lazygit = { enabled = true },
   },
   keys = {
-    { "<leader>lg", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>lg", function() require("snacks").lazygit() end, desc = "Lazygit" },
   },
 }
