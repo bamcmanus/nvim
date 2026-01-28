@@ -1,3 +1,9 @@
+vim.filetype.add({
+    pattern = {
+        [".*%.bazelrc"] = "bazelrc",
+        [".bazelrc"] = "bazelrc",
+    },
+})
 return {
     {
         "neovim/nvim-lspconfig",
@@ -32,13 +38,14 @@ return {
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed =  {
-                    "bzl",
+                    "bazelrc_lsp",
                     "eslint",
                     "gh_actions_ls",
                     "gopls",
                     "html",
                     "lua_ls",
                     "pylsp",
+                    "starpls",
                 },
                 handlers = {
                     function(server_name) -- default handler (optional)
@@ -47,36 +54,17 @@ return {
                         }
                     end,
 
-                    ["lua_ls"] = function()
+                    ["starpls"] = function()
                         local lspconfig = require("lspconfig")
-                        lspconfig.lua_ls.setup{
+                        lspconfig.starpls.setup{
                             capabilities = capabilities,
-                            on_init = function(client)
-                                if client.workspace_folders then
-                                    local path = client.workspace_folders[1].name
-                                    if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
-                                        return
-                                    end
-                                end
-
-                                client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-                                    runtime = {
-                                        version = 'LuaJIT'
-                                    },
-                                    diagnostics = {
-                                        globals = { 'vim' },
-                                    },
-                                    workspace = {
-                                        checkThirdParty = false,
-                                        library = {
-                                            vim.env.VIMRUNTIME
-                                        }
-                                    }
-                                })
-                            end,
-                            settings = {
-                                Lua = {}
-                            },
+                            cmd = {
+                                "starpls",
+                                "server",
+                                "--experimental_infer_ctx_attributes",
+                                "--experimental_use_code_flow_analysis",
+                                "--experimental_enable_label_completions",
+                            }
                         }
                     end,
                 }
@@ -97,6 +85,7 @@ return {
                     ["<C-Space>"] = cmp.mapping.complete(),
                 }),
                 sources = cmp.config.sources({
+                    { name = "lazydev", group_index = 0 },
                     { name = "copilot", group_index = 2},
                     { name = "nvim_lsp" },
                     { name = "luasnip" }, --for luasnip users.

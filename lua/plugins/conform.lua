@@ -4,21 +4,24 @@ return {
         dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim" },
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
+        ---@module "conform"
+        ---@type conform.setupOpts
         opts = {
             -- Set up formatters by filetype
             formatters_by_ft = {
-                lua = { "stylua" },
-                python = { "isort", "black" },
-                javascript = { "prettier" },
-                typescript = { "prettier" },
-                javascriptreact = { "prettier" },
-                typescriptreact = { "prettier" },
+                bzl = { "buildifier" },
                 css = { "prettier" },
-                html = { "prettier" },
-                json = { "prettier" },
-                yaml = { "prettier" },
-                markdown = { "prettier" },
                 graphql = { "prettier" },
+                html = { "prettier" },
+                javascript = { "prettier" },
+                javascriptreact = { "prettier" },
+                json = { "prettier" },
+                lua = { "stylua" },
+                markdown = { "prettier" },
+                python = { "isort", "black" },
+                typescript = { "prettier" },
+                typescriptreact = { "prettier" },
+                yaml = { "prettier" },
                 -- You can use a function to dynamically choose a formatter
                 -- or return a list of formatters to run sequentially
                 go = function(bufnr)
@@ -30,10 +33,12 @@ return {
                 end,
             },
             -- Enables format on save
+            default_format_opts = {
+                lsp_format = "fallback",
+            },
             format_on_save = {
                 -- I recommend these options for a smooth experience
                 timeout_ms = 500,
-                lsp_format = "fallback",
             },
             -- You can customize formatters here
             formatters = {
@@ -48,6 +53,7 @@ return {
             require("mason-tool-installer").setup {
                 ensure_installed = {
                     "black",
+                    "buildifier",
                     "gofumpt",
                     "goimports-reviser",
                     "golines",
