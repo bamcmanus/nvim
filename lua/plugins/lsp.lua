@@ -2,6 +2,7 @@ vim.filetype.add({
     pattern = {
         [".*%.bazelrc"] = "bazelrc",
         [".bazelrc"] = "bazelrc",
+        [".*%.axl"] = "starlark",
     },
 })
 return {
@@ -33,7 +34,7 @@ return {
             require("fidget").setup({})
             require("mason").setup()
             require("mason-lspconfig").setup({
-                ensure_installed =  {
+                ensure_installed = {
                     "bazelrc_lsp",
                     "eslint",
                     "gh_actions_ls",
@@ -52,8 +53,9 @@ return {
 
                     ["starpls"] = function()
                         local lspconfig = require("lspconfig")
-                        lspconfig.starpls.setup{
+                        lspconfig.starpls.setup {
                             capabilities = capabilities,
+                            filetypes = { "bzl", "starlark" },
                             cmd = {
                                 "starpls",
                                 "server",
@@ -82,12 +84,12 @@ return {
                 }),
                 sources = cmp.config.sources({
                     { name = "lazydev", group_index = 0 },
-                    { name = "copilot", group_index = 2},
+                    { name = "copilot", group_index = 2 },
                     { name = "nvim_lsp" },
                     { name = "luasnip" }, --for luasnip users.
                 }, {
-                        { name = "buffer" },
-                    })
+                    { name = "buffer" },
+                })
             })
 
             vim.diagnostic.config({
