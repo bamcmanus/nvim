@@ -41,7 +41,7 @@ return {
             -- You can customize formatters here
             formatters = {
                 prettier = {
-                    prepend_args = { "--prose-wrap=always" },
+                    prepend_args = { "--prose-wrap=always", "--print-width=80" },
                 },
             },
         },
