@@ -43,6 +43,7 @@ return {
                     "lua_ls",
                     "pylsp",
                     "starpls",
+                    "ts_ls",
                 },
                 handlers = {
                     function(server_name) -- default handler (optional)
