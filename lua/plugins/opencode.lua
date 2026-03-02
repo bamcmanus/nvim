@@ -1,15 +1,27 @@
 return {
   "NickvanDyke/opencode.nvim",
   config = function()
+    local width = math.floor(vim.o.columns * 0.4)
+
     vim.g.opencode_opts = {
-      provider = {
-        enabled = "snacks",
-        snacks = {
-          win = {
-            position = "right",
-            width = math.floor(vim.o.columns * 0.4),
-          },
-        },
+      server = {
+        -- Use a fixed port so the plugin can reliably discover the server
+        port = 7741,
+        start = function()
+          require("opencode.terminal").start("opencode --port 7741", {
+            split = "right",
+            width = width,
+          })
+        end,
+        stop = function()
+          require("opencode.terminal").stop()
+        end,
+        toggle = function()
+          require("opencode.terminal").toggle("opencode --port 7741", {
+            split = "right",
+            width = width,
+          })
+        end,
       },
       events = {
         permissions = {
