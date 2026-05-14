@@ -35,7 +35,7 @@ return {
                 lsp_format = "fallback",
             },
             format_on_save = {
-                -- I recommend these options for a smooth experience
+            -- I recommend these options for a smooth experience
                 timeout_ms = 500,
             },
             -- You can customize formatters here
