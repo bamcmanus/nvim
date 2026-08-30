@@ -26,6 +26,7 @@ and uses Wayland clipboard tools only when they are available.
 
 ## Notes
 
-The Bazel integration currently supports WORKSPACE-based detection. Bzlmod
-support is tracked in [issue #1](https://github.com/bamcmanus/bazel.nvim/issues/1)
-on the companion fork.
+Bazel integration uses [bamcmanus/bazel.nvim](https://github.com/bamcmanus/bazel.nvim).
+Workspace roots are detected from `MODULE.bazel` first, then `WORKSPACE` /
+`WORKSPACE.bazel`. In BUILD files, `<leader>bb` / `<leader>bt` / `<leader>br`
+use the named rule under the cursor.
