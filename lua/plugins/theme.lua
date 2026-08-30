@@ -1,48 +1,34 @@
----@diagnostic disable: undefined-global
-
--- Choose your active theme here
-local active_theme = "carbonfox" -- Options: "tokyonight", "carbonfox"
+-- Keep a dependable fallback for other Linux distributions and macOS. The
+-- Omarchy theme remains selected on Omarchy, while its theme catalogue and
+-- hot-reload behavior are isolated in plugins/omarchy-*.lua.
+if require("platform.omarchy").is_active() then
+  return {
+    {
+      "bjarneo/hackerman.nvim",
+      dependencies = { "bjarneo/aether.nvim" },
+      priority = 1000,
+    },
+    {
+      "LazyVim/LazyVim",
+      opts = {
+        colorscheme = "hackerman",
+      },
+    },
+  }
+end
 
 return {
-    -- Tokyo Night theme
-    {
-        "folke/tokyonight.nvim",
-        lazy = active_theme ~= "tokyonight",
-        priority = 1000,
-        config = function()
-            if active_theme == "tokyonight" then
-                require("tokyonight").setup({
-                    transparent = true,
-                    styles = {
-                        sidebars = "transparent",
-                        floats = "transparent",
-                    },
-                })
-                vim.opt.termguicolors = true
-                vim.cmd.colorscheme("tokyonight-night")
-            end
-        end,
+  {
+    "folke/tokyonight.nvim",
+    priority = 1000,
+    opts = {
+      style = "night",
     },
-
-    -- Nightfox theme (Carbonfox variant)
-    {
-        "EdenEast/nightfox.nvim",
-        lazy = active_theme ~= "carbonfox",
-        priority = 1000,
-        config = function()
-            if active_theme == "carbonfox" then
-                require("nightfox").setup({
-                    options = {
-                        transparent = true,
-                        styles = {
-                            sidebars = "transparent",
-                            floats = "transparent",
-                        },
-                    },
-                })
-                vim.opt.termguicolors = true
-                vim.cmd.colorscheme("carbonfox")
-            end
-        end,
+  },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "tokyonight-night",
     },
+  },
 }
