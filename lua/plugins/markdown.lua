@@ -1,9 +1,11 @@
 return {
-    'MeanderingProgrammer/markdown.nvim',
+  {
+    "MeanderingProgrammer/markdown.nvim",
     main = "render-markdown",
     opts = {
-        code = {
-            languages = {},
-        },
+      code = {
+        languages = {},
+      },
     },
+  },
 }
